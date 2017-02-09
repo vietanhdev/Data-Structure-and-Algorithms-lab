@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// article > N > V > preposition > article > N
+
+char * article[5] = {"the", "a", "one", "some", "any"};
+char * nou[5] = {"boy", "girl", "dog", "town", "car"};
+char * verb[5] = {"drove", "jumped", "ran", "walked", "skipped"};
+char * preposition[5] = {"to", "from", "over", "under", "on"};
+
+int main(int argc, char *argv[])
+{
+  char s[100];
+  int rannum;
+    for (int i = 1; i < 10; i++) {
+      	printf("%d:\n", i);
+	rannum = rand()%5;
+	strcat(s, article[rannum]);
+	printf("%s\n", s);
+    }
+    return 0;
+}
