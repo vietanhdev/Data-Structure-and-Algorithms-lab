@@ -1,0 +1,5 @@
+STT.   MSSV.     Ho ten                Dien thoai.               Diem
+ 1  20123123      Nguyen Viet Anh.                23091726319283                  3.0
+ 2  20123123      Hello World.                    23091726319283                  3.0
+ 3  20123123      Xin chao                        23091726319283                  3.0
+ 4  20123123      To La Viet. Anh.                23091726319283                  4.0

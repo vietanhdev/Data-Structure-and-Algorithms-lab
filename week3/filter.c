@@ -62,7 +62,6 @@ int main(int argc, char const *argv[])
 		"fuck",
 		"hi"
 	};
-	printf("%c\n", wordList[0][1]);
 
 	char s[MAX_CHAR_PER_LINE];
 	int begin, end;
