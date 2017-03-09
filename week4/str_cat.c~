@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+
+
+  int i, n, *s;
+
+  char s1[256], s2[256]
+
+
+
+
+}
