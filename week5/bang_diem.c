@@ -150,6 +150,9 @@ int main(int argc, char const *argv[])
 		//printf("%2d  %.30s  %.30s  %.30s  %.1f\n", i+1, sv[i].stdCode, sv[i].name, sv[i].phoneNumber, sv[i].grade);
 		printf("%2d  %-12.12s  %-30.30s  %-30.30s  %-.1f\n", i+1, sv2[i].stdCode, sv2[i].name, sv2[i].phoneNumber, sv2[i].grade);
 	}
+
+	free(sv);
+	free(sv2);
 	
 	return 0;
 }

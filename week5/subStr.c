@@ -19,9 +19,13 @@ char * subStr(char *s1, int offset, int number) {
 
 int main(int argc, char const *argv[])
 {
-	char s[100] = "Xin chao cac ban nhe";
-	printf("%s\n", subStr(s, 0, 1));
-	printf("%s\n", subStr(s, 4, 4));
-	printf("%s\n", subStr(s, 4, 100));
+	char s[30];
+	int offset, number;
+	printf("Nhap xau:\n");
+	fgets(s, 100, stdin);
+	printf("Nhap offset va number:\n");
+	scanf("%d %d", &offset, &number);
+	printf("Xau me la: %s\n", s);
+	printf("Xau kq: %s\n", subStr(s, offset, number));
 	return 0;
 }
