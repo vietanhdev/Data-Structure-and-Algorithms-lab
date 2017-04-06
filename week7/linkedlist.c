@@ -51,7 +51,7 @@ void pushEnd(node_t ** head, value_t val) { // Insert to the end
 	current->next->next = NULL;
 }
 
-void pushAfter(int pos, value_t val) {
+void pushAfterIndex(int pos, value_t val) {
 	if (pos < 0 || pos >= countList(head)) {
 		printf("Invalid Position!\n");
 		return;
@@ -59,7 +59,7 @@ void pushAfter(int pos, value_t val) {
 	
 	node_t * current = head;
 	int i;
-	for (i = 0; i < pos; ++i) {
+	for (i = 1; i < pos; ++i) {
 		current = current->next;
 	}
 
@@ -69,7 +69,7 @@ void pushAfter(int pos, value_t val) {
 	new_node->next = current->next;
 	current->next = new_node;
 }
-void pushBefore(int pos, value_t val) {
+void pushBeforeIndex(int pos, value_t val) {
 	if (pos < 0 || pos >= countList(head)) {
 		printf("Invalid Position!\n");
 		return;
@@ -139,7 +139,52 @@ value_t popEnd(node_t ** head) {
 }
 
 
-value_t popAt(int pos) {
+value_t popAt(node_t ** head, node_t * current) {
+	value_t returnVal;
+
+	if (current == *head) {
+		popHead(head);
+		return returnVal;
+	}
+	
+	node_t * prev = *head;
+	while (prev->next != current && prev != NULL) {
+		prev = prev->next;
+	}
+
+	if (prev->next != NULL) { // current is in list
+		prev->next = current->next;
+		free(current);
+	}
+
+	return returnVal;
+}
+
+void pushAt(node_t ** head, node_t * current, value_t val) {
+
+	if (current == *head) {
+		pushHead(head, val);
+		return;
+	}
+	
+	node_t * prev = *head;
+	while (prev->next != current && prev != NULL) {
+		prev = prev->next;
+	}
+
+	if (prev->next == NULL) {
+		printf("Error: Position to Push at is not in the list\n");
+		return;
+	};
+
+	current = malloc(sizeof(node_t));
+	current->val = val;
+	current->next = prev->next;
+	prev->next = current;
+
+}
+
+value_t popAtIndex(int pos) {
 	value_t returnVal;
 	if (pos < 0 || pos >= countList(head)) {
 		printf("Invalid Position!\n");
@@ -195,13 +240,25 @@ void initData() {
 }
 
 
+void setCurrentIndex(int pos) {
+	if (pos < 0 || pos >= countList(head)) {
+		printf("Invalid Position\n");
+	}
+	int i;
+	current = head;
+	for (i = 0; i < pos; ++i) {
+		current = current->next;
+	}
+	printf("Current data: %d\n", current->val);
+}
+
 
 int main(int argc, char const *argv[])
 {
 	value_t val;
 	int pos;
 	int choice = 0;
-	while (choice != 10) {
+	while (choice != 13) {
 		printf("LINKED LIST EXAMPLES IN C\n");
 		printf("Author: Viet Anh Nguyen\n");
 		printf("1: Init Data\n");
@@ -210,10 +267,13 @@ int main(int argc, char const *argv[])
 		printf("4: Push End\n");
 		printf("5: Pop Head\n");
 		printf("6: Pop End\n");
-		printf("7: Push After\n");
-		printf("8: Push Before\n");
-		printf("9: Pop At\n");
-		printf("10: Exit\n");
+		printf("7: Push After Index\n");
+		printf("8: Push Before Index\n");
+		printf("9: Pop At Index\n");
+		printf("10: Pop At current\n");
+		printf("11: Set current\n");
+		printf("12: Push At current\n");
+		printf("13: Exit\n");
 		printf("Your choice: ");
 		scanf("%d", &choice);
 		switch (choice) {
@@ -242,23 +302,39 @@ int main(int argc, char const *argv[])
 			case 7: {
 				printf("Data: ");
 				scanf("%d", &val);
-				printf("Position to Push After: ");
+				printf("Position to Push After Index: ");
 				scanf("%d", &pos);
-				pushAfter(pos, val);
+				pushAfterIndex(pos, val);
 				printInt(); break;
 			}
 			case 8: {
 				printf("Data: ");
 				scanf("%d", &val);
-				printf("Position to Push Before: ");
+				printf("Position to Push Before Index: ");
 				scanf("%d", &pos); 
-				pushBefore(pos, val);
+				pushBeforeIndex(pos, val);
 				printInt(); break;
 			}
 			case 9: {
-				printf("Position to Pop: ");
+				printf("Position to Pop Index: ");
 				scanf("%d", &pos); 
-				popAt(pos);
+				popAtIndex(pos);
+				printInt(); break;
+			}
+			case 10: {
+				popAt(&head, current);
+				printInt(); break;
+			}
+			case 11: {
+				printf("Position to set curent: ");
+				scanf("%d", &pos);
+				setCurrentIndex(pos);
+				break;
+			}
+			case 12: {
+				printf("Data: ");
+				scanf("%d", &val); 
+				pushAt(&head, current, val);
 				printInt(); break;
 			}
 		}
