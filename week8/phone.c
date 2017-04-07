@@ -319,6 +319,31 @@ void displayDB(node_t * head)
 	printf("\n");
 }
 
+void DBtoFile(node_t * head, char * filename)
+{
+	int n;
+	if (countList(head) == 0)
+	return;
+
+	FILE *f = fopen(filename,"w");
+	if (f == NULL)
+	{
+		printf("Error opening %s\n\n", filename);
+		return;
+	}
+	
+	fprintf(f, "%*s%*s%*s%*s%*s\n",-3,"STT",-50,"MODEL",-20,"MEMORY",-30,"SCREEN SIZE",-15,"PRICE (VND)");
+	
+	int i = 1;
+	node_t *current = head;
+	while (current != NULL) {
+		fprintf(f, "%*d%*s%*s%*s%*d\n",-3,i++,-50,current->val.Model,-20,current->val.Memory,-30,current->val.ScreenSize,-15,current->val.Price);
+		current = current->next;
+	}
+
+	fclose(f);
+}
+
 
 value_t inputAPhone() {
 	value_t phone;
@@ -480,6 +505,49 @@ void divideAndExtract() {
 
 }
 
+
+
+void splitList(int begin, int end) {
+
+	// index (from 0) to pos (from 1)
+	begin++;
+	end++;
+	
+	node_t * begin_node;
+	node_t * end_node;
+	setCurrentIndex(begin, &begin_node);
+	setCurrentIndex(end, &end_node);
+
+	for (node_t * node = begin_node; node != end_node->next; node = node->next) {
+		pushEnd(&head2, node->val);
+		popAt(&head, node);
+	}
+
+	printf("Extracted list:\n");
+	displayDB(head2);
+
+	printf("Remaining list:\n");
+	displayDB(head);
+
+}
+
+
+void splitList_Input () {
+	int begin, end;
+	printf("Begin(from 0): \n"); scanf("%d", &begin);
+	if (begin < 0 || begin > countList(head)-1) {
+		printf("invalid begin index\n");
+		return;
+	}
+	printf("End(from 0): \n"); scanf("%d", &end);
+	if (end < 0 || end > countList(head)-1 || end < begin) {
+		printf("invalid end index\n");
+		return;
+	}
+	splitList(begin, end);
+
+}
+
 void reverseList(node_t ** head) {
 	if (*head == NULL) {
 		return;
@@ -550,6 +618,7 @@ int main(int argc, char const *argv[]){
 		printf("11. Save to file\n");
 		printf("12. Quit\n");
 		printf("111. Set current by Index\n");
+		printf("222. splitList\n");
 		printf("Your choice: ");
 		scanf("%d", &select);
 		switch(select) {
@@ -565,6 +634,7 @@ int main(int argc, char const *argv[]){
 			case 10: reverseList(&head); displayDB(head); break;
 			case 11: saveToFile(); break;
 			case 111: printf("Enter position: \n"); scanf("%d", &pos); setCurrentIndex(pos, &current); printAPhone(current); break;
+			case 222: splitList_Input(); DBtoFile(head, "file1.txt"); DBtoFile(head2, "file2.txt"); break;
 			case 12:
 			default: printf("Invalid selection!\n");
 		}
