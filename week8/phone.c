@@ -187,7 +187,7 @@ value_t popAt(node_t ** head, node_t * current) {
 	value_t returnVal;
 
 	if (current == *head) {
-		popHead(head);
+		returnVal = popHead(head);
 		return returnVal;
 	}
 	
@@ -197,6 +197,7 @@ value_t popAt(node_t ** head, node_t * current) {
 	}
 
 	if (prev->next != NULL) { // current is in list
+		returnVal = current->val;
 		prev->next = current->next;
 		free(current);
 	}

@@ -19,9 +19,12 @@ typedef struct {
 typedef struct node {
 	value_t val;
 	struct node * next;
+	struct node * prev;
 } node_t;
 
 node_t *head = NULL;
+node_t *tail = NULL;
+
 node_t *current;
 
 void removeLastChar(char *s) {
@@ -48,6 +51,9 @@ void pushHead(node_t ** head, value_t val) {
 	node_t * new_node;
 	new_node = malloc(sizeof(node_t));
 	new_node->val = val;
+	if (*head != NULL) {
+
+	}
 	new_node->next = *head;
 	*head = new_node;
 }
@@ -181,6 +187,7 @@ value_t popEnd(node_t ** head) {
 	return returnVal;
 
 }
+
 
 value_t popAt(node_t ** head, node_t * current) {
 	value_t returnVal;
