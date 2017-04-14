@@ -13,7 +13,6 @@ typedef struct {
 	char id[ID_LENGTH];
 	char name[NAME_LENGTH];
 	int grade;
-	int Price;
 } STUDENT;
 
 typedef struct node {

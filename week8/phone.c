@@ -549,7 +549,7 @@ void splitList_Input () {
 
 }
 
-void reverseList(node_t ** head) {
+void reverseList(node_t ** head, node_t ** tail) {
 	if (*head == NULL) {
 		return;
 	}
@@ -558,18 +558,10 @@ void reverseList(node_t ** head) {
 		return;
 	}
 
-	node_t * current = *head;
-	node_t * prev_node = NULL;
-	node_t * next_node;
-
-	while (current != NULL) {
-		next_node = current->next;
-		current->next = prev_node;
-		prev_node = current;
-		current = next_node;
+	int i;
+	for (i = 0; i < countList(*head); ++i) {
+		pushHead(head, tail, popEnd(head, tail));
 	}
-
-	*head = prev_node;
 
 }
 
@@ -632,7 +624,7 @@ int main(int argc, char const *argv[]){
 			case 7: deleteFirst(); break;
 			case 8: searchAndUpdate(); break;
 			case 9: divideAndExtract(); break;
-			case 10: reverseList(&head); displayDB(head); break;
+			case 10: reverseList(&head, &tail); displayDB(head); break;
 			case 11: saveToFile(); break;
 			case 111: printf("Enter position: \n"); scanf("%d", &pos); setCurrentIndex(pos, &current); printAPhone(current); break;
 			case 222: splitList_Input(); DBtoFile(head, "file1.txt"); DBtoFile(head2, "file2.txt"); break;
