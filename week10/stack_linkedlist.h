@@ -47,6 +47,10 @@ int StackIsEmpty(StackType * head) {
 }
 
 void StackInitialize(StackType ** head) {
+	*head = NULL;
+}
+
+void StackFree(StackType ** head) {
 	while (*head != NULL) {
 		StackPop(head);
 	}
